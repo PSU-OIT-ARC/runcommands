@@ -1,0 +1,231 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>runcommands.util.path &#8212; RunCommands 1.0a26.dev0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0a26.dev0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">RunCommands</a></h1>
+
+
+
+<p class="blurb">Easily define and run multiple commands</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=wylee&repo=runcommands&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../defining-commands.html">Defining Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../running-commands.html">Running Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../built-in-commands.html">Built In Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Docs</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/wylee/runcommands">Source (GitHub)</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for runcommands.util.path</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">.printer</span> <span class="k">import</span> <span class="n">printer</span>
+
+
+<div class="viewcode-block" id="abs_path"><a class="viewcode-back" href="../../../api/util.html#runcommands.util.abs_path">[docs]</a><span class="k">def</span> <span class="nf">abs_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">format_kwargs</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;Get abs. path for ``path``.</span>
+
+<span class="sd">    ``path`` may be a relative or absolute file system path or an asset</span>
+<span class="sd">    path. If ``path`` is already an abs. path, it will be returned as</span>
+<span class="sd">    is. Otherwise, it will be converted into a normalized abs. path.</span>
+
+<span class="sd">    &gt;&gt;&gt; file_path = os.path.normpath(__file__)</span>
+<span class="sd">    &gt;&gt;&gt; dir_name = os.path.dirname(file_path)</span>
+<span class="sd">    &gt;&gt;&gt; file_name = os.path.basename(file_path)</span>
+<span class="sd">    &gt;&gt;&gt; os.chdir(dir_name)</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; abs_path(file_name) == file_path</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; abs_path(&#39;runcommands.util:&#39;) == dir_name</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; abs_path(&#39;runcommands.util:path.py&#39;) == file_path</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; abs_path(&#39;/{xyz}&#39;, format_kwargs={&#39;xyz&#39;: &#39;abc&#39;})</span>
+<span class="sd">    &#39;/abc&#39;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">format_kwargs</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">format_kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">asset_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">path</span></div>
+
+
+<div class="viewcode-block" id="asset_path"><a class="viewcode-back" href="../../../api/util.html#runcommands.util.asset_path">[docs]</a><span class="k">def</span> <span class="nf">asset_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">format_kwargs</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">&quot;&quot;&quot;Get absolute path to asset in package.</span>
+
+<span class="sd">    ``path`` can be just a package name like &#39;package&#39; or it can be</span>
+<span class="sd">    a package name and a relative file system path like &#39;package:util&#39;.</span>
+
+<span class="sd">    &gt;&gt;&gt; file_path = os.path.normpath(__file__)</span>
+<span class="sd">    &gt;&gt;&gt; dir_name = os.path.dirname(file_path)</span>
+<span class="sd">    &gt;&gt;&gt; file_name = os.path.basename(file_path)</span>
+<span class="sd">    &gt;&gt;&gt; os.chdir(dir_name)</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; asset_path(&#39;runcommands.util&#39;) == dir_name</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; asset_path(&#39;runcommands.util:path.py&#39;) == file_path</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; asset_path(&#39;runcommands.util:{name}.py&#39;, format_kwargs={&#39;name&#39;: &#39;path&#39;}) == file_path</span>
+<span class="sd">    True</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">format_kwargs</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">format_kwargs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+        <span class="n">package_name</span><span class="p">,</span> <span class="o">*</span><span class="n">rel_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">package_name</span><span class="p">,</span> <span class="n">rel_path</span> <span class="o">=</span> <span class="n">path</span><span class="p">,</span> <span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">package</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">package_name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">&#39;Could not get asset path for </span><span class="si">{path}</span><span class="s1">; could not import package: </span><span class="si">{package_name}</span><span class="s1">&#39;</span>
+            <span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="nb">locals</span><span class="p">()))</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">package</span><span class="p">,</span> <span class="s1">&#39;__file__&#39;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t compute path relative to namespace package&quot;</span><span class="p">)</span>
+
+    <span class="n">package_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">package</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">package_path</span><span class="p">,</span> <span class="o">*</span><span class="n">rel_path</span><span class="p">)</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">path</span></div>
+
+
+<div class="viewcode-block" id="paths_to_str"><a class="viewcode-back" href="../../../api/util.html#runcommands.util.paths_to_str">[docs]</a><span class="k">def</span> <span class="nf">paths_to_str</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">format_kwargs</span><span class="o">=</span><span class="p">{},</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">pathsep</span><span class="p">,</span> <span class="n">asset_paths</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">check_paths</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert ``paths`` to a single string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        paths (str|list): A string like &quot;/a/path:/another/path&quot; or</span>
+<span class="sd">            a list of paths; may include absolute paths and/or asset</span>
+<span class="sd">            paths; paths that are relative will be left relative</span>
+<span class="sd">        format_kwargs (dict): Will be injected into each path</span>
+<span class="sd">        delimiter (str): The string used to separate paths</span>
+<span class="sd">        asset_paths (bool): Whether paths that look like asset paths</span>
+<span class="sd">            will be converted to absolute paths</span>
+<span class="sd">        check_paths (bool): Whether paths should be checked to ensure</span>
+<span class="sd">            they exist</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">paths</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="n">paths</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">delimiter</span><span class="p">)</span>
+    <span class="n">processed_paths</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+        <span class="n">original</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">format_kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">asset_paths</span> <span class="ow">and</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">path</span> <span class="o">=</span> <span class="n">asset_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">path</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">processed_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">check_paths</span><span class="p">:</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
+            <span class="n">printer</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Path does not exist: </span><span class="si">{path}</span><span class="s1"> (from </span><span class="si">{original}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format_map</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">delimiter</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">processed_paths</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017 Wyatt Baldwin.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

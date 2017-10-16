@@ -1,0 +1,199 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>command &#8212; RunCommands 1.0a26.dev0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0a26.dev0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="config" href="config.html" />
+    <link rel="prev" title="runcommands" href="runcommands.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">RunCommands</a></h1>
+
+
+
+<p class="blurb">Easily define and run multiple commands</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=wylee&repo=runcommands&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../defining-commands.html">Defining Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running-commands.html">Running Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../built-in-commands.html">Built In Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="runcommands.html">runcommands</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="const.html">const</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exc.html">exc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run.html">run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runner.html">runnner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">util</a></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/wylee/runcommands">Source (GitHub)</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-runcommands.command">
+<span id="command"></span><h1>command<a class="headerlink" href="#module-runcommands.command" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="runcommands.command.Command">
+<em class="property">class </em><code class="descclassname">runcommands.command.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>implementation</em>, <em>name=None</em>, <em>description=None</em>, <em>help=None</em>, <em>type=None</em>, <em>choices=()</em>, <em>env=None</em>, <em>default_env=None</em>, <em>config=None</em>, <em>timed=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/runcommands/command.html#Command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runcommands.command.Command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Command.</p>
+<p>Wraps a callable and provides a command line argument parser.</p>
+<p>This is typically used via the <code class="docutils literal"><span class="pre">command</span></code> decorator:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">runcommands</span> <span class="k">import</span> <span class="n">command</span>
+
+<span class="nd">@command</span>
+<span class="k">def</span> <span class="nf">my_command</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>implementation</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/functions.html#callable" title="(in Python v3.3)"><em>callable</em></a>) – A callable that implements the
+command’s functionality. The command’s console script will
+be generated by inspecting this callable.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/stdtypes.html#str" title="(in Python v3.3)"><em>str</em></a>) – Name of command as it will be called from the
+command line. Defaults to <code class="docutils literal"><span class="pre">implementation.__name__</span></code> (with
+underscores replaced with dashes).</li>
+<li><strong>description</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/stdtypes.html#str" title="(in Python v3.3)"><em>str</em></a>) – Description of command shown in command
+help. Defaults to <code class="docutils literal"><span class="pre">implementation.__doc__</span></code>.</li>
+<li><strong>help</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/stdtypes.html#dict" title="(in Python v3.3)"><em>dict</em></a>) – Help text for the command’s args.
+<code class="docutils literal"><span class="pre">{'name':</span> <span class="pre">'help</span> <span class="pre">text'}</span></code></li>
+<li><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/stdtypes.html#dict" title="(in Python v3.3)"><em>dict</em></a>) – Types used to parse values passed via the command
+line. May be any callable that accepts a single arg.
+Positional args will be strings unless specified here. Types
+for options are derived from keyword arg values by default.
+<code class="docutils literal"><span class="pre">{'name':</span> <span class="pre">'type'}</span></code></li>
+<li><strong>(</strong><strong>)</strong> (<em>choices</em>) – When given for an arg, the value for the arg must be
+one of the specified choices. <code class="docutils literal"><span class="pre">{'name':</span> <span class="pre">(1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">...)}</span></code></li>
+<li><strong>env</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/stdtypes.html#str" title="(in Python v3.3)"><em>str</em></a>) – Env to run command in. If this is specified, the
+command <em>will</em> be run in this env and may <em>only</em> be run in
+this env. If this is set to <code class="xref py py-const docutils literal"><span class="pre">DEFAULT_ENV</span></code>, the
+command will be run in the configured default env.</li>
+<li><strong>default_env</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/stdtypes.html#str" title="(in Python v3.3)"><em>str</em></a>) – Default env to run command in. If this is
+specified, the command will be run in this env by default
+and may also be run in any other env. If this is set to
+<code class="xref py py-const docutils literal"><span class="pre">DEFAULT_ENV</span></code>, the command will be run in the
+configured default env.</li>
+<li><strong>config</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/stdtypes.html#dict" title="(in Python v3.3)"><em>dict</em></a>) – Additional or override config. This will
+supplement or override config read from other sources.
+Passed args take precedence over this config.
+<code class="docutils literal"><span class="pre">{'dotted.name':</span> <span class="pre">value}</span></code></li>
+<li><strong>timed</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/functions.html#bool" title="(in Python v3.3)"><em>bool</em></a>) – Whether the command should be timed. Will print an
+info message showing how long the command took to complete
+when <code class="docutils literal"><span class="pre">True</span></code>. Defaults to <code class="docutils literal"><span class="pre">False</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="runcommands.command.Command.arg_map">
+<code class="descname">arg_map</code><a class="headerlink" href="#runcommands.command.Command.arg_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map command-line arg names to parameters.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="runcommands.command.Command.param_map">
+<code class="descname">param_map</code><a class="headerlink" href="#runcommands.command.Command.param_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map parameters to command-line arg names.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017 Wyatt Baldwin.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/api/command.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,289 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>util &#8212; RunCommands 1.0a26.dev0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0a26.dev0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="runnner" href="runner.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">RunCommands</a></h1>
+
+
+
+<p class="blurb">Easily define and run multiple commands</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=wylee&repo=runcommands&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../defining-commands.html">Defining Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running-commands.html">Running Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../built-in-commands.html">Built In Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Docs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="runcommands.html">runcommands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command.html">command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="const.html">const</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exc.html">exc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run.html">run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runner.html">runnner</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">util</a></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/wylee/runcommands">Source (GitHub)</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-runcommands.util">
+<span id="util"></span><h1>util<a class="headerlink" href="#module-runcommands.util" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="runcommands.util.cached_property">
+<em class="property">class </em><code class="descclassname">runcommands.util.</code><code class="descname">cached_property</code><span class="sig-paren">(</span><em>fget</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/runcommands/util/decorators.html#cached_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runcommands.util.cached_property" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cache property value on first access.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">value</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">C</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="nd">@cached_property</span>
+<span class="gp">... </span>   <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>       <span class="k">return</span> <span class="n">value</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">cached_property</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">C</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;x&#39;</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="vm">__dict__</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">x</span> <span class="ow">is</span> <span class="n">value</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;x&#39;</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="vm">__dict__</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="runcommands.util.Color">
+<em class="property">class </em><code class="descclassname">runcommands.util.</code><code class="descname">Color</code><a class="reference internal" href="../_modules/runcommands/util/enums.html#Color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runcommands.util.Color" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enumeration.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="runcommands.util.Hide">
+<em class="property">class </em><code class="descclassname">runcommands.util.</code><code class="descname">Hide</code><a class="reference internal" href="../_modules/runcommands/util/enums.html#Hide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runcommands.util.Hide" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enumeration.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="runcommands.util.format_if">
+<code class="descclassname">runcommands.util.</code><code class="descname">format_if</code><span class="sig-paren">(</span><em>value</em>, <em>format_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/runcommands/util/misc.html#format_if"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runcommands.util.format_if" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply format args to value if value or return value as is.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="runcommands.util.load_object">
+<code class="descclassname">runcommands.util.</code><code class="descname">load_object</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span> &#x2192; object<a class="reference internal" href="../_modules/runcommands/util/misc.html#load_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runcommands.util.load_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load an object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> (<em>str|object</em>) – <p>Load the indicated object if this is a string;
+otherwise, return the object as is.</p>
+<p>To load a module, pass a dotted path like ‘package.module’;
+to load an an object from a module pass a path like
+‘package.module:name’.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="runcommands.util.abs_path">
+<code class="descclassname">runcommands.util.</code><code class="descname">abs_path</code><span class="sig-paren">(</span><em>path</em>, <em>format_kwargs={}</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/runcommands/util/path.html#abs_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runcommands.util.abs_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get abs. path for <code class="docutils literal"><span class="pre">path</span></code>.</p>
+<p><code class="docutils literal"><span class="pre">path</span></code> may be a relative or absolute file system path or an asset
+path. If <code class="docutils literal"><span class="pre">path</span></code> is already an abs. path, it will be returned as
+is. Otherwise, it will be converted into a normalized abs. path.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dir_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">dir_name</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">abs_path</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span> <span class="o">==</span> <span class="n">file_path</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">abs_path</span><span class="p">(</span><span class="s1">&#39;runcommands.util:&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">dir_name</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">abs_path</span><span class="p">(</span><span class="s1">&#39;runcommands.util:path.py&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">file_path</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">abs_path</span><span class="p">(</span><span class="s1">&#39;/</span><span class="si">{xyz}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">format_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;xyz&#39;</span><span class="p">:</span> <span class="s1">&#39;abc&#39;</span><span class="p">})</span>
+<span class="go">&#39;/abc&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="runcommands.util.asset_path">
+<code class="descclassname">runcommands.util.</code><code class="descname">asset_path</code><span class="sig-paren">(</span><em>path</em>, <em>format_kwargs={}</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/runcommands/util/path.html#asset_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runcommands.util.asset_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get absolute path to asset in package.</p>
+<p><code class="docutils literal"><span class="pre">path</span></code> can be just a package name like ‘package’ or it can be
+a package name and a relative file system path like ‘package:util’.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dir_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">dir_name</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asset_path</span><span class="p">(</span><span class="s1">&#39;runcommands.util&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">dir_name</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asset_path</span><span class="p">(</span><span class="s1">&#39;runcommands.util:path.py&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">file_path</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">asset_path</span><span class="p">(</span><span class="s1">&#39;runcommands.util:</span><span class="si">{name}</span><span class="s1">.py&#39;</span><span class="p">,</span> <span class="n">format_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;path&#39;</span><span class="p">})</span> <span class="o">==</span> <span class="n">file_path</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="runcommands.util.paths_to_str">
+<code class="descclassname">runcommands.util.</code><code class="descname">paths_to_str</code><span class="sig-paren">(</span><em>paths</em>, <em>format_kwargs={}</em>, <em>delimiter=':'</em>, <em>asset_paths=False</em>, <em>check_paths=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/runcommands/util/path.html#paths_to_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runcommands.util.paths_to_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert <code class="docutils literal"><span class="pre">paths</span></code> to a single string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>paths</strong> (<em>str|list</em>) – A string like “/a/path:/another/path” or
+a list of paths; may include absolute paths and/or asset
+paths; paths that are relative will be left relative</li>
+<li><strong>format_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/stdtypes.html#dict" title="(in Python v3.3)"><em>dict</em></a>) – Will be injected into each path</li>
+<li><strong>delimiter</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/stdtypes.html#str" title="(in Python v3.3)"><em>str</em></a>) – The string used to separate paths</li>
+<li><strong>asset_paths</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/functions.html#bool" title="(in Python v3.3)"><em>bool</em></a>) – Whether paths that look like asset paths
+will be converted to absolute paths</li>
+<li><strong>check_paths</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/functions.html#bool" title="(in Python v3.3)"><em>bool</em></a>) – Whether paths should be checked to ensure
+they exist</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="runcommands.util.confirm">
+<code class="descclassname">runcommands.util.</code><code class="descname">confirm</code><span class="sig-paren">(</span><em>config</em>, <em>prompt='Really?'</em>, <em>color='warning'</em>, <em>yes_values=('y'</em>, <em>'yes')</em>, <em>abort_on_unconfirmed=False</em>, <em>abort_options=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/runcommands/util/prompt.html#confirm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runcommands.util.confirm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prompt for confirmation.</p>
+<p>Confirmation can be aborted by typing in a no value instead of one
+of the yes values or with Ctrl-C.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>config</strong> (<em>Mapping</em>) – Only used to format <code class="docutils literal"><span class="pre">prompt</span></code></li>
+<li><strong>prompt</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/stdtypes.html#str" title="(in Python v3.3)"><em>str</em></a>) – Prompt to present user [“Really?”]</li>
+<li><strong>color</strong> (<em>string|Color|bool</em>) – <code class="docutils literal"><span class="pre">False</span></code> or <code class="docutils literal"><span class="pre">None</span></code> to print without color [“yellow”]</li>
+<li><strong>yes_values</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/stdtypes.html#list" title="(in Python v3.3)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.3/library/stdtypes.html#str" title="(in Python v3.3)"><em>str</em></a><em>]</em>) – Values user must type in to confirm
+[(“y”, “yes”)]</li>
+<li><strong>abort_on_unconfirmed</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/functions.html#bool" title="(in Python v3.3)"><em>bool</em></a>) – If <code class="docutils literal"><span class="pre">True</span></code>, print “Aborted” to
+stdout and exit with code 0 when not confirmed.</li>
+<li><strong>abort_options</strong> (<a class="reference external" href="https://docs.python.org/3.3/library/stdtypes.html#dict" title="(in Python v3.3)"><em>dict</em></a>) – Options to pass to <code class="xref py py-func docutils literal"><span class="pre">abort()</span></code> when not
+confirmed (these options will override any options set via
+<code class="docutils literal"><span class="pre">abort_on_unconfirmed</span></code>)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017 Wyatt Baldwin.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/api/util.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

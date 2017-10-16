@@ -1,0 +1,199 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Configuration &#8212; RunCommands 1.0a26.dev0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0a26.dev0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Docs" href="api/index.html" />
+    <link rel="prev" title="Built In Commands" href="built-in-commands.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">RunCommands</a></h1>
+
+
+
+<p class="blurb">Easily define and run multiple commands</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=wylee&repo=runcommands&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defining-commands.html">Defining Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running-commands.html">Running Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="built-in-commands.html">Built In Commands</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-config">Accessing Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#extending-config">Extending Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interpolation">Interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#default-option-values">Default Option Values</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Docs</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/wylee/runcommands">Source (GitHub)</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<p>Configuration is read from an INI file where the values are encoded as JSON.
+This allows for rich values without requiring third party libraries.</p>
+<p>A config file looks like this, with sections for different environments:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">;</span> <span class="n">commands</span><span class="o">.</span><span class="n">cfg</span>
+<span class="p">[</span><span class="n">DEFAULT</span><span class="p">]</span>
+<span class="n">project_name</span> <span class="o">=</span> <span class="s2">&quot;My Project&quot;</span>
+
+<span class="p">[</span><span class="n">dev</span><span class="p">]</span>
+<span class="n">debug</span> <span class="o">=</span> <span class="n">true</span>
+
+<span class="p">[</span><span class="n">stage</span><span class="p">]</span>
+<span class="n">debug</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">defaults</span><span class="o">.</span><span class="n">remote</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;stage_host&quot;</span>
+
+<span class="p">[</span><span class="n">prod</span><span class="p">]</span>
+<span class="n">debug</span> <span class="o">=</span> <span class="n">false</span>
+<span class="n">remote</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;prod_host&quot;</span>
+<span class="n">defaults</span><span class="o">.</span><span class="n">remote</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{remote.host}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<div class="section" id="accessing-config">
+<h2>Accessing Config<a class="headerlink" href="#accessing-config" title="Permalink to this headline">¶</a></h2>
+<p>When the above config file is read, its values can be accessed using item or
+attribute syntax. The following are equivalent:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">remote</span><span class="o">.</span><span class="n">host</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;remote&#39;</span><span class="p">][</span><span class="s1">&#39;host&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>In some situations, it’s convenient to be able to get at config values using
+a special dotted notation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;remote.host&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">config</span><span class="o">.</span><span class="n">_get_dotted</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">config</span><span class="o">.</span><span class="n">_get_dotted</span><span class="p">(</span><span class="s1">&#39;does.not.exist&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;some default&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="extending-config">
+<h2>Extending Config<a class="headerlink" href="#extending-config" title="Permalink to this headline">¶</a></h2>
+<p>A config file can extend another config file using the <code class="docutils literal"><span class="pre">extends</span></code> key. This
+example uses an “asset path” where the config file lives in a Python package
+named <code class="docutils literal"><span class="pre">mypackage</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">extends</span> <span class="o">=</span> <span class="s2">&quot;mypackage:my.cfg&quot;</span>
+</pre></div>
+</div>
+<p>A relative or absolute file system can be specified instead:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">extends</span> <span class="o">=</span> <span class="s2">&quot;/path/to/my.cfg&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The same env/section will always be extended from; there’s no way to
+extend from a different env/section.</p>
+</div>
+</div>
+<div class="section" id="interpolation">
+<h2>Interpolation<a class="headerlink" href="#interpolation" title="Permalink to this headline">¶</a></h2>
+<p>Config values can contain Python format strings like <code class="docutils literal"><span class="pre">${remote.host}</span></code>. These
+will be replaced with the corresponding config values.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only works with string values.</p>
+</div>
+</div>
+<div class="section" id="default-option-values">
+<h2>Default Option Values<a class="headerlink" href="#default-option-values" title="Permalink to this headline">¶</a></h2>
+<p>As shown above, default option values can be specified for a command via
+configuration. These defaults will take precedence over option values defined
+on the command but can be overridden via command line options.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This works whether a command is called via the command line <em>or</em>
+called directly in Python code.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017 Wyatt Baldwin.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/configuration.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

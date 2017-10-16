@@ -1,0 +1,161 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>runcommands &#8212; RunCommands 1.0a26.dev0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0a26.dev0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="command" href="command.html" />
+    <link rel="prev" title="API Docs" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">RunCommands</a></h1>
+
+
+
+<p class="blurb">Easily define and run multiple commands</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=wylee&repo=runcommands&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../defining-commands.html">Defining Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running-commands.html">Running Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../built-in-commands.html">Built In Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Docs</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">runcommands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command.html">command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="const.html">const</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exc.html">exc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run.html">run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runner.html">runnner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">util</a></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://github.com/wylee/runcommands">Source (GitHub)</a></li>
+    
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-runcommands">
+<span id="runcommands"></span><h1>runcommands<a class="headerlink" href="#module-runcommands" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="runcommands.bool_or">
+<code class="descclassname">runcommands.</code><code class="descname">bool_or</code><span class="sig-paren">(</span><em>inner_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/runcommands/command.html#bool_or"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runcommands.bool_or" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to indicate that an arg can be a flag or an option.</p>
+<p>Used like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@command</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;hide&#39;</span><span class="p">:</span> <span class="n">bool_or</span><span class="p">(</span><span class="nb">str</span><span class="p">)})</span>
+<span class="k">def</span> <span class="nf">local</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="s2">&quot;Run the specified command, possibly hiding its output.&quot;</span>
+</pre></div>
+</div>
+<p>Allows for this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">run</span> <span class="n">local</span> <span class="o">--</span><span class="n">hide</span> <span class="nb">all</span>     <span class="c1"># Hide everything</span>
+<span class="n">run</span> <span class="n">local</span> <span class="o">--</span><span class="n">hide</span>         <span class="c1"># Hide everything with less effort</span>
+<span class="n">run</span> <span class="n">local</span> <span class="o">--</span><span class="n">hide</span> <span class="n">stdout</span>  <span class="c1"># Hide stdout only</span>
+<span class="n">run</span> <span class="n">local</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">hide</span>      <span class="c1"># Don&#39;t hide anything</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal"><span class="pre">--no-&lt;name&gt;</span></code> option will only be available when the
+default for the option is a bool.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="runcommands.configure">
+<code class="descclassname">runcommands.</code><code class="descname">configure</code><span class="sig-paren">(</span><em>commands_module=None</em>, <em>config_file=None</em>, <em>default_env=None</em>, <em>env=None</em>, <em>echo=None</em>, <em>hide=None</em>, <em>debug=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/runcommands.html#configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#runcommands.configure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set environment variables.</p>
+<p>String values will be left as is; other types of values will be JSON
+encoded.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2017 Wyatt Baldwin.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/api/runcommands.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
